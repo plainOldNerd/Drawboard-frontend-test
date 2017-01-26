@@ -59,3 +59,10 @@ $ yarn test
 - [MelbCSS - Matrix Transforms 101](https://youtu.be/hAECeSfyO9M)
 - [MDN - SVG Transform](https://developer.mozilla.org/en/docs/Web/SVG/Attribute/transform)
 - [MDN - SVG path](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths)
+
+# Notes from me - the applicant
+
+## Acknowledgements
+
+1) Many thanks to [this site](https://github.com/gajus/react-css-modules) for 
+providing the code to get Webpack loaders handle the CSS.
