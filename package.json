@@ -1,0 +1,30 @@
+{
+  "name": "drawboard-test",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "react-scripts": "0.8.4"
+  },
+  "dependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^1.14.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "compile": "webpack"
+  },
+  "description": "We are all about annotating/marking up engineering/construction/architecture documents, collaboratively, in real-time, across multiple devices.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
