@@ -8,49 +8,12 @@ import rgba  from "../__lib__/unit_to_rgba"
 	individually to the data that represents the shape before it is rendered on 
 	the screen" means we DON'T do <path ... transform="someCrap" />. 
 	We need to pre-calculate the d before returning a <path d="..." ... />
+	In other words, we need to multiply 
+	Geometry: "M100,100 L400,100 L400,400 L100,400 Z" with Matrix: [2,0,0,1,0,0]
+	for example. Bring on the alcohol and let's get it happening!
  */
 
 export default props => <path d={props.Geometry} stroke={rgba(props.StrokeColor)}
 	strokeWidth={props.StrokeThickness} fill={rgba(props.FillColor)}
-	transform={calculateTransform(props.Matrix)}
+	transform={`matrix(${ props.Matrix.join(",") })`}
   	/>
-/*
-export default props => <path {...{
-    d:           props.Geometry,
-    stroke:      rgba(props.StrokeColor),
-    strokeWidth: props.StrokeThickness,
-    fill:        rgba(props.FillColor),
-    // this next line is somehow the problem
-    transform:   `matrix(${ props.Matrix.join(",") })`,
-  }}/>
-*/
-
-// USELESS NOTES TO ILLUSTRATE THINKING
-
-/*
-var calculateTransform = function(Matrix){
-	var matrixString = 'matrix(';
-
-	for(var i=0; i<6; ++i){
-console.log('Matrix['+i+'] = '+Matrix[i]);
-		matrixString += Matrix[i];
-		if( i==5 ) continue;
-		matrixString += ',';
-	}
-
-	matrixString += ')';
-console.log('matrixString = '+matrixString);
-	return matrixString;
-}
-
-export default props => <path d={props.Geometry} stroke={rgba(props.StrokeColor)}
-	strokeWidth={props.StrokeThickness} fill={rgba(props.FillColor)}
-	transform={calculateTransform(props.Matrix)}
-  	/>
-*/
-/*
-	Nyah-huh, some insight into what that damned dollar sign does. Still no clue
-	about the apostrophe marks.
-	Probably should've just looked here 
-	http://stackoverflow.com/questions/35835362/what-does-dollar-sign-and-curly-braces-mean-in-a-string-in-javascript
-*/
