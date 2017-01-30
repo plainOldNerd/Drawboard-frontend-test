@@ -5,6 +5,3 @@ src/bundle.js
 
 # dependencies
 node_modules
-
-# inherited yarn stuff
-yarn.lock
