@@ -35,42 +35,95 @@ var transform_point = function([x, y], [a, d, b, e, c, f]){
 // example of Geometry "M100,100 L400,100 H400 V400 Z"
 var convertGeometry = function(Geometry, Matrix){
 
-console.log('Geometry = ' + Geometry);
-
 	var geom = '';
-	var index = 0;
 
-	while(index < Geometry.length){
-		var nextCmd = Geometry.substr(index,1);
+	while(0 < Geometry.length){
+		var nextCmd = Geometry.substr(0,1);
 		geom += nextCmd;
+		Geometry = Geometry.substr(1,Geometry.length-1);
 
 		switch(nextCmd){
 			case 'M':
 			case 'm':
 			case 'L':
 			case 'l':
+				var regex = /\d+/i;
+				// get the untransformed x co-ord
+				var xCoOrd = Geometry.match(regex)[0];
 
-				index += 9;
+				Geometry = Geometry.substr(Geometry.indexOf(',')+1,
+					Geometry.length-1);
+				// Get the untransformed y co-ord
+				var yCoOrd = Geometry.match(regex)[0];
+
+				if( Geometry.indexOf(' ') != -1 ){
+					Geometry = Geometry.substr(Geometry.indexOf(' ')+1,
+						Geometry.length-1);
+				}
+				else {
+					Geometry = '';
+				}
+
+				var transCoOrds = transform_point([xCoOrd,yCoOrd],Matrix);
+				xCoOrd = transCoOrds.x;
+				yCoOrd = transCoOrds.y;
+				geom += xCoOrd+',';
+				geom += yCoOrd+' ';
+
 				break;
 			case 'H':
 			case 'h':
+				var regex = /\d+/i;
+				// figure out if this should be x or y! fix things accordingly if
+				// this is wrong!
+				var xCoOrd = Geometry.match(regex)[0];
+				var yCoOrd = 0;
 
-				index += 5;
+				if( Geometry.indexOf(' ') != -1 ){
+					Geometry = Geometry.substr(Geometry.indexOf(' ')+1,
+						Geometry.length-1);
+				}
+				else {
+					Geometry = '';
+				}
+
+				var transCoOrds = transform_point([xCoOrd,yCoOrd],Matrix);
+				xCoOrd = transCoOrds.x;
+				yCoOrd = transCoOrds.y;
+				geom += xCoOrd+' ';
+
 				break;
 			case 'V':
 			case 'v':
+				var regex = /\d+/i;
+				// figure out if this should be x or y! fix things accordingly if
+				// this is wrong!
+				var xCoOrd = 0;
+				var yCoOrd = Geometry.match(regex)[0];
 
-				index += 5;
+				if( Geometry.indexOf(' ') != -1 ){
+					Geometry = Geometry.substr(Geometry.indexOf(' ')+1,
+						Geometry.length-1);
+				}
+				else {
+					Geometry = '';
+				}
+
+				var transCoOrds = transform_point([xCoOrd,yCoOrd],Matrix);
+				xCoOrd = transCoOrds.x;
+				yCoOrd = transCoOrds.y;
+				geom += yCoOrd+' ';
+
 				break;
 			case 'Z':
 			case 'z':
-				index += 2;
+				Geometry = '';
 				break;
 			default:
 				console.log('enslave the humans!');
 		}
 	}
-console.log('geom = ' + geom);
+
 	return geom;
 }
 
